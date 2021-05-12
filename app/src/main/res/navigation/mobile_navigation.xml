@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/startFragment">
+    app:startDestination="@+id/nav_start">
 
 
     <fragment
-        android:id="@+id/startFragment"
+        android:id="@+id/nav_start"
         android:name="com.example.strahpro.ui.start.StartFragment"
-        android:label="111"
+        android:label="@string/menu_start"
         tools:layout="@layout/fragment_start" />
 
     <fragment
@@ -19,18 +19,18 @@
         tools:layout="@layout/fragment_osago" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.strahpro.ui.kasko.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_kasko"
+        android:name="com.example.strahpro.ui.kasko.KaskoFragment"
+        android:label="@string/menu_kasko"
+        tools:layout="@layout/fragment_kasko" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.strahpro.ui.manager.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:id="@+id/nav_manager"
+        android:name="com.example.strahpro.ui.manager.ManagerFragment"
+        android:label="@string/menu_manager"
         tools:layout="@layout/fragment_manager" />
     <fragment
-        android:id="@+id/resultFragment"
+        android:id="@+id/nav_result"
         android:name="com.example.strahpro.ui.result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />

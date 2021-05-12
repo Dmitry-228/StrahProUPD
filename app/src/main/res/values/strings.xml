@@ -8,9 +8,10 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_osago">ОСАГО</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_result">Slideshow</string>
+    <string name="menu_kasko">КАСКО</string>
+    <string name="menu_manager">Менеджер</string>
+    <string name="menu_result">Итог</string>
+    <string name="menu_start">Главный экран</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.strahpro.R;
 
-public class SlideshowFragment extends Fragment {
+public class ManagerFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
 
