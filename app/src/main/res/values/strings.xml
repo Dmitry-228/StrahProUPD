@@ -9,7 +9,7 @@
 
     <string name="menu_osago">ОСАГО</string>
     <string name="menu_kasko">КАСКО</string>
-    <string name="menu_manager">Менеджер</string>
+    <string name="menu_manager">Агент</string>
     <string name="menu_result">Итог</string>
     <string name="menu_start">Главный экран</string>
     <!-- TODO: Remove or change this placeholder text -->
