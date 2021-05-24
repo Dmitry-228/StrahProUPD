@@ -10,15 +10,15 @@ public class KaskoViewModel extends ViewModel {
 
     private ArrayList<Integer> agesList;
     private ArrayList<Integer> stageList;
-    private MutableLiveData<ArrayList<Integer>> ageLiveData;
-    private MutableLiveData<ArrayList<Integer>> stageLiveData;
+//    private MutableLiveData<ArrayList<Integer>> ageLiveData;
+//    private MutableLiveData<ArrayList<Integer>> stageLiveData;
 
-    public LiveData<ArrayList<Integer>> getAges() {
-        if(ageLiveData == null){
-            ageLiveData = new MutableLiveData<>();
+    public ArrayList<Integer> getAges() {
+        if(agesList == null){
+            //ageLiveData = new MutableLiveData<>();
             loadAgeData();
         }
-        return ageLiveData;
+        return agesList;
     }
 
     // эмитация обращения в БД
@@ -27,15 +27,15 @@ public class KaskoViewModel extends ViewModel {
         for (int i = 18; i<100; i++) {
             agesList.add(i);
         }
-        ageLiveData.postValue(agesList);
+        //ageLiveData.postValue(agesList);
     }
 
-    public LiveData<ArrayList<Integer>> getStage() {
-        if(stageLiveData == null){
-            stageLiveData = new MutableLiveData<>();
+    public ArrayList<Integer> getStage() {
+        if(stageList == null){
+           // stageLiveData = new MutableLiveData<>();
             loadStageData();
         }
-        return stageLiveData;
+        return stageList;
     }
 
     // эмитация обращения в БД
@@ -44,6 +44,6 @@ public class KaskoViewModel extends ViewModel {
         for (int i = 0; i<51; i++) {
             stageList.add(i);
         }
-        stageLiveData.postValue(stageList);
+        //stageLiveData.postValue(stageList);
     }
 }

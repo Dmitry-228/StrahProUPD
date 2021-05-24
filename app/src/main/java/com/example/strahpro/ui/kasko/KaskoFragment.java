@@ -37,43 +37,28 @@ public class KaskoFragment extends Fragment {
         ArrayAdapter<Integer> adapterSpinAges;
         ArrayAdapter<Integer> adapterSpinStages;
 
-        kaskoViewModel.getAges().observe(getViewLifecycleOwner(), new Observer<ArrayList<Integer>>() {
-            @Override
-            public void onChanged(@Nullable ArrayList<Integer> ages) {
-                ageList.clear();
-                ageList.addAll(0, ages);
-            }
-        });
-
-        kaskoViewModel.getStage().observe(getViewLifecycleOwner(), new Observer<ArrayList<Integer>>() {
-            @Override
-            public void onChanged(@Nullable ArrayList<Integer> stages) {
-                stageList.clear();
-                stageList.addAll(0, stages);
-            }
-        });
+        stageList = kaskoViewModel.getStage();
+        ageList = kaskoViewModel.getAges();
 
         adapterSpinAges = new ArrayAdapter<Integer>(root.getContext(), android.R.layout.simple_spinner_item, ageList);
         adapterSpinAges.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinAges.setAdapter(adapterSpinAges);
         spinAges.setAdapter(adapterSpinAges);
 
         adapterSpinStages = new ArrayAdapter<Integer>(root.getContext(), android.R.layout.simple_spinner_item, stageList);
         adapterSpinStages.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinStages.setAdapter(adapterSpinStages);
 
+        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = (String) parent.getItemAtPosition(position);
+            }
 
-//        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Integer item = (Integer) parent.getItemAtPosition(position);
-//                selection.setText(item);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//            }
-//        };
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        };
+
 
         return root;
     }

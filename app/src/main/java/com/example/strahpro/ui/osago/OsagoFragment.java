@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -16,15 +17,36 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.strahpro.R;
+import com.example.strahpro.data.CategoryTransport;
 
 import java.util.ArrayList;
 
 public class OsagoFragment extends Fragment {
-
+    Button rachet;
     private OsagoViewModel osagoViewModel;
     private ArrayList<Integer> stageList;
-    private ArrayList<String> categList;
+    private ArrayList<CategoryTransport> categList;
     private ArrayList<String> regList;
+   /* private double cafBT[] = {1036, 5436, 2807, 4227, 1680, 2807};
+    private double cafStage[] = {1.2, 1, 0.8};
+    private double cafReg[] = {1.18, 1, 0.8};*/
+    private String spinCategPos;
+    private String spinStagesPos;
+    private String spinRegionPos;
+    TextView itog;
+
+    private void logical() {
+        double tmpcafBT = 0.0;
+
+        for (CategoryTransport categoryTransport : categList) {
+            if(spinCategPos == categoryTransport.getName()){
+                tmpcafBT = categoryTransport.getcBt();
+            }
+        }
+
+        Double tmpItog = tmpcafBT*tmpcafBT;
+        itog.setText(tmpItog.toString());
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,43 +54,30 @@ public class OsagoFragment extends Fragment {
                 new ViewModelProvider(this).get(OsagoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_osago, container, false);
         stageList = new ArrayList<>();
-        categList = new ArrayList<String>();
+        categList = new ArrayList<CategoryTransport>();
         regList = new ArrayList<String>();
 
         Spinner spinCateg = (Spinner) root.findViewById(R.id.categAutoSpin);
         Spinner spinStages = (Spinner) root.findViewById(R.id.stageAutoSpin);
         Spinner spinRegion = (Spinner) root.findViewById(R.id.regionSpin);
-        TextView selection = (TextView) root.findViewById(R.id.textView5);
+        rachet = (Button) root.findViewById(R.id.rachet);
+        itog = (TextView) root.findViewById(R.id.itog);
         ArrayAdapter<String> adapterSpinCateg;
         ArrayAdapter<Integer> adapterSpinStages;
         ArrayAdapter<String> adapterSpinRegion;
 
 
-        osagoViewModel.getStage().observe(getViewLifecycleOwner(), new Observer<ArrayList<Integer>>() {
-            @Override
-            public void onChanged(@Nullable ArrayList<Integer> stages) {
-                stageList.clear();
-                stageList.addAll(0, stages);
-            }
-        });
+        regList = osagoViewModel.getRegion();
+        categList = osagoViewModel.getCategories();
+        stageList = osagoViewModel.getStage();
 
-        osagoViewModel.getCategories().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
-            @Override
-            public void onChanged(@Nullable ArrayList<String> categories) {
-                categList.clear();
-                categList.addAll(0, categories);
-            }
-        });
+        ArrayList<String> categListName = new ArrayList<>();
+        for (CategoryTransport categoryTransport : categList) {
+            categListName.add(categoryTransport.getName());
+        }
+        //
 
-        osagoViewModel.getRegion().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
-            @Override
-            public void onChanged(@Nullable ArrayList<String> regions) {
-                regList.clear();
-                regList.addAll(0, regions);
-            }
-        });
-
-        adapterSpinCateg = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, categList);
+        adapterSpinCateg = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, categListName);
         adapterSpinCateg.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinCateg.setAdapter(adapterSpinCateg);
 
@@ -80,19 +89,48 @@ public class OsagoFragment extends Fragment {
         adapterSpinRegion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinRegion.setAdapter(adapterSpinRegion);
 
-        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        spinCateg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String) parent.getItemAtPosition(position);
-                spinCateg.getSelectedItem().toString();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinCategPos = adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        };
-        spinCateg.setOnItemSelectedListener(itemSelectedListener);
 
+            }
+        });
+
+        spinRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinRegionPos = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinStages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinStagesPos = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        rachet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logical();
+            }
+        });
         return root;
     }
 }
