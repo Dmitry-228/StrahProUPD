@@ -15,7 +15,7 @@
             android:id="@+id/textView"
             android:layout_width="167dp"
             android:layout_height="21dp"
-            android:text="Выберите вид страховки"
+            android:text="Выберите тип страхования"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
