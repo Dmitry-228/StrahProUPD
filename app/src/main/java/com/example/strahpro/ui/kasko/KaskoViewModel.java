@@ -4,17 +4,20 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.strahpro.data.AgeTransport;
+import com.example.strahpro.data.StageTransport;
+
 import java.util.ArrayList;
 
 public class KaskoViewModel extends ViewModel {
 
-    private ArrayList<Integer> agesList;
-    private ArrayList<Integer> stageList;
+    private ArrayList<AgeTransport> agesList;
+    private ArrayList<StageTransport> stageList;
 //    private MutableLiveData<ArrayList<Integer>> ageLiveData;
 //    private MutableLiveData<ArrayList<Integer>> stageLiveData;
 
-    public ArrayList<Integer> getAges() {
-        if(agesList == null){
+    public ArrayList<AgeTransport> getAges() {
+        if (agesList == null) {
             //ageLiveData = new MutableLiveData<>();
             loadAgeData();
         }
@@ -22,28 +25,29 @@ public class KaskoViewModel extends ViewModel {
     }
 
     // эмитация обращения в БД
-    private void loadAgeData(){
+    private void loadAgeData() {
         agesList = new ArrayList<>();
-        for (int i = 18; i<100; i++) {
-            agesList.add(i);
-        }
+        agesList.add(new AgeTransport("меньше 23 лет", 0.6));
+        agesList.add(new AgeTransport("больше 23 лет", 0.4));
+        agesList.add(new AgeTransport("больше 30 лет", 0.3));
         //ageLiveData.postValue(agesList);
     }
 
-    public ArrayList<Integer> getStage() {
-        if(stageList == null){
-           // stageLiveData = new MutableLiveData<>();
+    public ArrayList<StageTransport> getStage() {
+        if (stageList == null) {
+            //stageLiveData = new MutableLiveData<>();
             loadStageData();
         }
         return stageList;
     }
 
     // эмитация обращения в БД
-    private void loadStageData(){
+    private void loadStageData() {
         stageList = new ArrayList<>();
-        for (int i = 0; i<51; i++) {
-            stageList.add(i);
-        }
+        stageList.add(new StageTransport("Меньше 3 лет", 1.2));
+        stageList.add(new StageTransport("Больше 3 лет", 1.0));
+        stageList.add(new StageTransport("Больше 7 лет", 0.8));
+
         //stageLiveData.postValue(stageList);
     }
 }
