@@ -36,19 +36,45 @@ public class KaskoFragment extends Fragment {
     private String spinStagesPos;
     private String spinAgePos;
 
-    private void logical(){
+    private void logical() {
         double tmpScf = 0.0;
-        double tmpcafBT = 0.0;
-        String guessStr = price.getText().toString();
-        int priceL = Integer.parseInt(guessStr);
-
-        if (signal != null) {
-            tmpScf = 1.18;
+        double tmpcafBT = 0.1; // коофициент от стажа и возроста
+        if (price.getText().length() == 0) {
+            itogk.setText("Укажите цену авто!");
         } else {
-            tmpScf = 1;
+
+            if (spinAgePos == "Меньше 23 лет") {
+                if (spinStagesPos == "Меньше 3 лет") {
+                    tmpcafBT = 0.06;
+                } else if (spinStagesPos == "Больше 3 лет") {
+                    tmpcafBT = 0.05;
+                }
+            }
+            if (spinAgePos == "Больше 23 лет") {
+                if (spinStagesPos == "Меньше 3 лет") {
+                    tmpcafBT = 0.05;
+                } else if (spinStagesPos == "Больше 3 лет") {
+                    tmpcafBT = 0.04;
+                }
+            }
+            if (spinAgePos == "Больше 30 лет") {
+                if (spinStagesPos == "Больше 7 лет") {
+                    tmpcafBT = 0.03;
+                }
+            }
+
+            String guessStr = price.getText().toString();
+            int priceL = Integer.parseInt(guessStr);
+
+
+            if (signal.isChecked()) {
+                tmpScf = 1.18;
+            } else {
+                tmpScf = 1;
+            }
+            Double summa = priceL * tmpScf * tmpcafBT;
+            itogk.setText(summa.toString());
         }
-        Double summa = priceL * tmpScf * tmpcafBT;
-        itogk.setText(summa.toString());
     }
 
 

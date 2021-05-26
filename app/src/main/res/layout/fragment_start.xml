@@ -13,14 +13,16 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="167dp"
-            android:layout_height="21dp"
+            android:layout_width="337dp"
+            android:layout_height="52dp"
             android:text="Выберите тип страхования"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.567"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.295" />
+            app:layout_constraintVertical_bias="0.304" />
 
         <Button
             android:id="@+id/kaskobut"
@@ -29,10 +31,10 @@
             android:text="КАСКО"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/osagobut"
-            app:layout_constraintHorizontal_bias="0.167"
+            app:layout_constraintHorizontal_bias="0.206"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.262" />
+            app:layout_constraintVertical_bias="0.223" />
 
         <Button
             android:id="@+id/osagobut"
@@ -44,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.262" />
+            app:layout_constraintVertical_bias="0.222" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -2,6 +2,7 @@ package com.example.strahpro.ui.osago;
 
 import android.icu.number.Precision;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,44 +49,51 @@ public class OsagoFragment extends Fragment {
         double tmpregcf = 0.0;
         double tmpPowcf = 0.0;
         double tmpTcf = 0.0;
-        String guessStr = power.getText().toString();
-        int theGuess = Integer.parseInt(guessStr);
 
-        for (CategoryTransport categoryTransport : categList) {
-            if (spinCategPos == categoryTransport.getName()) {
-                tmpcafBT = categoryTransport.getcBt();
-            }
-        }
-        for (StageTransport stageTransport : stageList) {
-            if (spinStagesPos == stageTransport.getName()) {
-                tmpstcf = stageTransport.getsBt();
-            }
-        }
-        for (RegionTransport regionTransport : regList) {
-            if (spinRegionPos == regionTransport.getName()) {
-                tmpregcf = regionTransport.getrBt();
-            }
-        }
-        if (theGuess < 70) {
-            tmpPowcf = 1;
-        } else if (theGuess > 71 && theGuess < 100) {
-            tmpPowcf = 1.1;
-        } else if (theGuess > 101 && theGuess < 120) {
-            tmpPowcf = 1.2;
-        } else if (theGuess > 121 && theGuess < 150) {
-            tmpPowcf = 1.4;
-        } else if (theGuess > 151) {
-            tmpPowcf = 1.6;
-        }
-        if (trailer != null) {
-            tmpTcf = 1.18;
+        if(power.getText().length() == 0){
+            itog.setText("Укажите мощность!");
         } else {
-            tmpTcf = 1;
-        }
+            String guessStr = power.getText().toString();
+            int theGuess = Integer.parseInt(guessStr);
 
-        Double tmpItog = tmpcafBT * tmpstcf * tmpregcf * tmpPowcf * tmpTcf;
-       // Math.round(tmpItog);
-        itog.setText(tmpItog.toString());
+            Log.d("POWER", guessStr );
+
+            for (CategoryTransport categoryTransport : categList) {
+                if (spinCategPos == categoryTransport.getName()) {
+                    tmpcafBT = categoryTransport.getcBt();
+                }
+            }
+            for (StageTransport stageTransport : stageList) {
+                if (spinStagesPos == stageTransport.getName()) {
+                    tmpstcf = stageTransport.getsBt();
+                }
+            }
+            for (RegionTransport regionTransport : regList) {
+                if (spinRegionPos == regionTransport.getName()) {
+                    tmpregcf = regionTransport.getrBt();
+                }
+            }
+            if (theGuess < 70) {
+                tmpPowcf = 1;
+            } else if (theGuess > 71 && theGuess < 100) {
+                tmpPowcf = 1.1;
+            } else if (theGuess > 101 && theGuess < 120) {
+                tmpPowcf = 1.2;
+            } else if (theGuess > 121 && theGuess < 150) {
+                tmpPowcf = 1.4;
+            } else if (theGuess > 151) {
+                tmpPowcf = 1.6;
+            }
+            if (trailer != null) {
+                tmpTcf = 1.18;
+            } else {
+                tmpTcf = 1;
+            }
+
+            Double tmpItog = tmpcafBT * tmpstcf * tmpregcf * tmpPowcf * tmpTcf;
+            // Math.round(tmpItog);
+            itog.setText(tmpItog.toString());
+        }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,

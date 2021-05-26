@@ -13,23 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.strahpro.OsagoFrag;
 import com.example.strahpro.R;
 import com.example.strahpro.ui.kasko.KaskoFragment;
-import com.example.strahpro.ui.osago.HomeViewModel;
 import com.example.strahpro.ui.osago.OsagoFragment;
 
 
 public class StartFragment extends Fragment {
-
-    private HomeViewModel homeViewModel;
     private Button kaskoBut;
     private Button osagoBut;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_start, container, false);
         kaskoBut = (Button) root.findViewById(R.id.kaskobut);
         osagoBut = (Button) root.findViewById(R.id.osagobut);

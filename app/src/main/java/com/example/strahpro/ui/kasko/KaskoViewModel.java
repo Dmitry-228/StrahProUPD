@@ -27,9 +27,9 @@ public class KaskoViewModel extends ViewModel {
     // эмитация обращения в БД
     private void loadAgeData() {
         agesList = new ArrayList<>();
-        agesList.add(new AgeTransport("меньше 23 лет", 0.6));
-        agesList.add(new AgeTransport("больше 23 лет", 0.4));
-        agesList.add(new AgeTransport("больше 30 лет", 0.3));
+        agesList.add(new AgeTransport("Меньше 23 лет", 0.6));
+        agesList.add(new AgeTransport("Больше 23 лет", 0.4));
+        agesList.add(new AgeTransport("Больше 30 лет", 0.3));
         //ageLiveData.postValue(agesList);
     }
 
