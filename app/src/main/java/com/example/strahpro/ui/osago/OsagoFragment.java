@@ -24,24 +24,27 @@ import com.example.strahpro.R;
 import com.example.strahpro.data.CategoryTransport;
 import com.example.strahpro.data.RegionTransport;
 import com.example.strahpro.data.StageTransport;
+import com.example.strahpro.data.Strahovka;
+import com.example.strahpro.db.DBAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OsagoFragment extends Fragment {
+    DBAdapter dbAdapter;
     Button rachet;
+    Button saveOsago;
     EditText power;
     Switch trailer;
     private OsagoViewModel osagoViewModel;
     private ArrayList<StageTransport> stageList;
     private ArrayList<CategoryTransport> categList;
     private ArrayList<RegionTransport> regList;
-    /* private double cafBT[] = {1036, 5436, 2807, 4227, 1680, 2807};
-     private double cafStage[] = {1.2, 1, 0.8};
-     private double cafReg[] = {1.18, 1, 0.8};*/
     private String spinCategPos;
     private String spinStagesPos;
     private String spinRegionPos;
     TextView itog;
+    Double tmpItog;
 
     private void logical() {
         double tmpcafBT = 0.0;
@@ -90,9 +93,10 @@ public class OsagoFragment extends Fragment {
                 tmpTcf = 1;
             }
 
-            Double tmpItog = tmpcafBT * tmpstcf * tmpregcf * tmpPowcf * tmpTcf;
-            // Math.round(tmpItog);
+            tmpItog = tmpcafBT * tmpstcf * tmpregcf * tmpPowcf * tmpTcf;
+
             itog.setText(tmpItog.toString());
+            saveOsago.setEnabled(true);
         }
     }
 
@@ -109,6 +113,8 @@ public class OsagoFragment extends Fragment {
         Spinner spinStages = (Spinner) root.findViewById(R.id.stageAutoSpin);
         Spinner spinRegion = (Spinner) root.findViewById(R.id.regionSpin);
         rachet = (Button) root.findViewById(R.id.rachet);
+        saveOsago = (Button) root.findViewById(R.id.saveOsago);
+        saveOsago.setEnabled(false);
         itog = (TextView) root.findViewById(R.id.itog);
         power = (EditText) root.findViewById(R.id.editTextNumberPower);
         trailer = (Switch) root.findViewById(R.id.trailer);
@@ -188,6 +194,18 @@ public class OsagoFragment extends Fragment {
                 logical();
             }
         });
+        saveOsago.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbAdapter = new DBAdapter(root.getContext());
+                dbAdapter.open();
+                Date date = new Date();
+                dbAdapter.insert(new Strahovka(date.toString(), tmpItog));
+                dbAdapter.close();
+                saveOsago.setEnabled(false);
+            }
+        });
+
         return root;
     }
 }

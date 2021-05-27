@@ -3,42 +3,37 @@ package com.example.strahpro.ui.result;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.strahpro.R;
+import com.example.strahpro.adapter.ResultAdapter;
+import com.example.strahpro.data.Strahovka;
+import com.example.strahpro.db.DBAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ResultFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class ResultFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public ResultFragment() {
-        // Required empty public constructor
-    }
+    private ArrayList<Strahovka> strahovki;
+    ResultAdapter resultAdapter;
+    DBAdapter adapter;
+    private RecyclerView strahovkiList;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ResultFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+    public ResultFragment() {}
+
     public static ResultFragment newInstance(String param1, String param2) {
         ResultFragment fragment = new ResultFragment();
         Bundle args = new Bundle();
@@ -58,9 +53,28 @@ public class ResultFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_result, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_result, container, false);
+
+        strahovkiList = (RecyclerView) root.findViewById(R.id.list);
+        adapter = new DBAdapter(root.getContext());
+        adapter.open();
+
+        strahovki = adapter.getStrahovki();
+        strahovki.add(new Strahovka("111", 3333));
+        Log.d("SIZE", Integer.toString(strahovki.size()));
+        resultAdapter =  new ResultAdapter(getContext(), strahovki);
+        strahovkiList.setHasFixedSize(true);
+
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        strahovkiList.setLayoutManager(linearLayoutManager);
+
+
+        strahovkiList.setAdapter(resultAdapter);
+        adapter.close();
+        return root;
     }
 }

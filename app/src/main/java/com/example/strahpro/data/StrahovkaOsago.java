@@ -6,11 +6,11 @@ class StrahovkaOsago extends Strahovka {
     private String region;
 
     public StrahovkaOsago(double price, String date, int stage) {
-        super(price, date, stage);
+        super(date, price);
     }
 
     public StrahovkaOsago(double price, String date, int stage, double power, String categorie, String region) {
-        super(price, date, stage);
+        super(date, price);
         this.power = power;
         this.categorie = categorie;
         this.region = region;

@@ -6,11 +6,11 @@ class StrahovkaKasko extends Strahovka {
     private boolean alarm;
 
     public StrahovkaKasko(double price, String date, int stage) {
-        super(price, date, stage);
+        super(date, price);
     }
 
     public StrahovkaKasko(double price, String date, int stage, int age, String price1, boolean alarm) {
-        super(price, date, stage);
+        super(date, price);
         this.age = age;
         this.price = carPrice;
         this.alarm = alarm;

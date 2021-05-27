@@ -1,14 +1,25 @@
 package com.example.strahpro.data;
 
-class Strahovka {
-    protected double price;
+public class Strahovka {
+    protected Double price;
     protected String date;
-    protected int stage;
+    protected int stage = 0;
+    protected int id;
 
-    public Strahovka(double price, String date, int stage) {
+    public Strahovka(String date, double price, int stage) {
         this.price = price;
         this.date = date;
         this.stage = stage;
+    }
+
+    public Strahovka(String date, double price) {
+        this.price = price;
+        this.date = date;
+    }
+    public Strahovka(int id, String date, double price) {
+        this.price = price;
+        this.date = date;
+        this.id = id;
     }
 
     public double getPrice() {
