@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/nav_result"
         android:name="com.example.strahpro.ui.result.ResultFragment"
-        android:label="fragment_result"
+        android:label="История"
         tools:layout="@layout/fragment_result" />
 
 </navigation>

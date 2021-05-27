@@ -53,13 +53,11 @@ public class OsagoFragment extends Fragment {
         double tmpPowcf = 0.0;
         double tmpTcf = 0.0;
 
-        if(power.getText().length() == 0){
+        if (power.getText().length() == 0) {
             itog.setText("Укажите мощность!");
         } else {
             String guessStr = power.getText().toString();
             int theGuess = Integer.parseInt(guessStr);
-
-            Log.d("POWER", guessStr );
 
             for (CategoryTransport categoryTransport : categList) {
                 if (spinCategPos == categoryTransport.getName()) {
@@ -87,7 +85,7 @@ public class OsagoFragment extends Fragment {
             } else if (theGuess > 151) {
                 tmpPowcf = 1.6;
             }
-            if (trailer != null) {
+            if (trailer.isChecked()) {
                 tmpTcf = 1.18;
             } else {
                 tmpTcf = 1;

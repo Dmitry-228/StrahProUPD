@@ -21,12 +21,17 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.strahpro.R;
 import com.example.strahpro.data.AgeTransport;
 import com.example.strahpro.data.StageTransport;
+import com.example.strahpro.data.Strahovka;
+import com.example.strahpro.db.DBAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class KaskoFragment extends Fragment {
 
     private Button rachetK;
+    DBAdapter dbAdapter;
+    private Button saveKasko;
     private TextView itogk;
     private Switch signal;
     private EditText price;
@@ -35,6 +40,7 @@ public class KaskoFragment extends Fragment {
     private ArrayList<StageTransport> stageList;
     private String spinStagesPos;
     private String spinAgePos;
+    Double tmpItogk;
 
     private void logical() {
         double tmpScf = 0.0;
@@ -74,6 +80,7 @@ public class KaskoFragment extends Fragment {
             }
             Double summa = priceL * tmpScf * tmpcafBT;
             itogk.setText(summa.toString());
+            saveKasko.setEnabled(true);
         }
     }
 
@@ -90,6 +97,8 @@ public class KaskoFragment extends Fragment {
         signal = (Switch) root.findViewById(R.id.signal);
         itogk = (TextView) root.findViewById(R.id.itogK);
         price = (EditText) root.findViewById(R.id.editTextPrice);
+        saveKasko = (Button) root.findViewById(R.id.saveKasko);
+        saveKasko.setEnabled(false);
         ArrayAdapter<String> adapterSpinAges;
         ArrayAdapter<String> adapterSpinStages;
 
@@ -142,6 +151,19 @@ public class KaskoFragment extends Fragment {
                 logical();
             }
         });
+
+        saveKasko.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbAdapter = new DBAdapter(root.getContext());
+                dbAdapter.open();
+                Date date = new Date();
+                dbAdapter.insert(new Strahovka(date.toString(), tmpItogk));
+                dbAdapter.close();
+                saveKasko.setEnabled(false);
+            }
+        });
+
 
         return root;
     }
